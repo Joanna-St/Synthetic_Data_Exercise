@@ -4,6 +4,8 @@ from pydantic import BaseModel
 
 @dataclass
 class Customer:
+    """Core data model representing a single customer record."""
+
     id: int
     name: str
     email: str
@@ -12,6 +14,10 @@ class Customer:
 
 
 class Customers(BaseModel):
+    """Pydantic wrapper used for parsing structured LLM responses.
+    Pydantic handles validation and deserialization; Customer itself
+    stays a plain dataclass for use throughout the rest of the pipeline."""
+
     customers: list[Customer]
 
 
