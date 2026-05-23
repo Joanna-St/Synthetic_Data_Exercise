@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pydantic import BaseModel
+import re
 
 
 @dataclass
@@ -11,6 +12,20 @@ class Customer:
     email: str
     age: int
     country: str = "Unknown"
+
+    def _has_valid_age(self):
+        return self.age >= 18 and self.age <= 80
+
+    def _has_valid_name(self):
+        return self.name and isinstance(self.name, str) and len(self.name) > 0
+    
+    def _has_valid_email(self):
+        # regex = "[\S]+@[\S]+.[\S]+"
+        # return re.match(regex, self.email)
+        return self.email and isinstance(self.email, str) and len(self.email) > 0
+    
+    def _has_valid_country(self):
+        return self.country and isinstance(self.country, str) and len(self.country) > 0
 
 
 class Customers(BaseModel):
